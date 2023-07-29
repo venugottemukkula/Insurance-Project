@@ -31,11 +31,11 @@ pipeline {
               sh 'docker build -t venugottemukkula/insureproject:latest .'
                     }
                   }
-         stage ('Dockerlogin') {
+         stage('Dockerlogin') {
            steps {
             withCredentials([usernamePassword(credentialsId: 'Docker-Hub_Venu', passwordVariable: 'dockerHubPossword', usernameVariable: 'dockerHubUser')]) {
               sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPossword}"  
-}
+                 }
                       }
                    }
                  
@@ -44,5 +44,6 @@ pipeline {
               sh 'docker push venugottemukkula/insureproject:latest'
                    }
            } 
+
        }
    }
