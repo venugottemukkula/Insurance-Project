@@ -25,5 +25,24 @@ pipeline {
           publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/Insure-me-Project/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
                                    }
                        }
-                }
+           
+          stage('Docker Image Creation') {
+            steps { 
+              sh 'docker built -t venugottemukkula/insureproject:latest .'
+                    }
+                  }
+         stage ('Dockerlogin') {
+           steps {
+            withCredentials([usernamePassword(credentialsId: 'Docker-Hub_Venu', passwordVariable: 'dockerHubPossword', usernameVariable: 'dockerHubUser')]) {
+              sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPossword}"  
+}
+                      }
+                   }
+                 
+         stage('Push Image to DockerHub') {
+           steps {
+              sh 'docker push venugottemukkula/insureproject:latest'
+                   }
            } 
+       }
+   }
