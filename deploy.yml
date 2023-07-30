@@ -1,0 +1,19 @@
+---
+- name: configure Docker on DeployServer
+  hosts: [server]
+  become: true
+  tasks:
+    - name: apt updating
+      command: sudo apt update
+    - name: Install python and pip
+      command: sudo install -y python pip
+    - name: instaling Docker
+      command: sudo apt-get install -y docker.io
+      become: yes
+      become_user: root
+    - name: Start Docker service using systemctl
+      command: sudo systemctl start docker
+      become: yes
+      become_user: root
+    - name: Deploye the Image from DockerHub and Run as Container
+      command: docker -run -itd -p 8090:8085 venugottemukkula/insureproject:latest
