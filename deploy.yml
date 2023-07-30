@@ -1,5 +1,5 @@
 ---
-- name: configure Docker on DeployServer
+- name: Configure Docker on DeployServer
   hosts: [server]
   become: true
   tasks:
