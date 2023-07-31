@@ -43,7 +43,7 @@ pipeline {
            steps {
               sh 'docker push venugottemukkula/insureproject:latest'
                    }
-           
+                }
                 
          stage('Deploye Application Using Ansible') {
            steps {
@@ -51,3 +51,4 @@ pipeline {
          }
        }
    }
+ }
